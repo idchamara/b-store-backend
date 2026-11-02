@@ -5,14 +5,13 @@ import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
 import verifyJWT from './middleware/auth.js';
 import orderRouter from './routers/orderRouter.js';
+import dotenv from 'dotenv';
 
-// db link - mongodb+srv://<db_username>:<db_password>@cluster0.ogz7p0p.mongodb.net/?appName=Cluster0
-// db user - bstoreadmin
-// db password - nCPsKfXlbKmkbvT9
+dotenv.config();
 
 const app = express();
 
-mongoose.connect("mongodb+srv://bstoreadmin:nCPsKfXlbKmkbvT9@cluster0.ogz7p0p.mongodb.net/?appName=Cluster0").then(
+mongoose.connect(process.env.MONGO_URL).then(
     ()=>{
         console.log("Connected to the databace.");
     }
