@@ -6,10 +6,13 @@ import productRouter from './routers/productRouter.js';
 import verifyJWT from './middleware/auth.js';
 import orderRouter from './routers/orderRouter.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL).then(
     ()=>{
@@ -34,5 +37,3 @@ app.listen(3000,
         console.log("Server is running on port 3000")
     }
 )
-
-// start from day 8

@@ -1,6 +1,9 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // register user ===================================================
 export function saveUser(req, res) {
@@ -52,6 +55,7 @@ export function saveUser(req, res) {
 
 // login user ===================================================
 export function loginUser(req, res) {
+    
     const loginEmail = req.body.email;
     const loginPassword = req.body.password;
 
@@ -81,12 +85,15 @@ export function loginUser(req, res) {
                         isEmailVerified: user.isEmailVerified
                     }
                     // crating a token
-                    const token = jwt.sign(userData, "random456");
+                    const token = jwt.sign(userData, process.env.JWT_KEY,{
+                        expiresIn : "48hrs"
+                    });
 
                     res.json(
                         {
                             message: "Login Successful",
-                            token: token
+                            token: token,
+                            user: userData
                         }
                     )
                 } else {
