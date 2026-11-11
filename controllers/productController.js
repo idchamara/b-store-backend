@@ -71,7 +71,7 @@ export function updateProduct(req, res) {
             });
         }
     ).catch(
-        () => {
+        (err) => {
             res.status(500).json({
                 message: "Product not updated"
             });
