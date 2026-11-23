@@ -78,6 +78,21 @@ export function updateProduct(req, res) {
         }
     );
 };
+// get one product - only admin===================================================================
+export async function getProductById(req, res) {
+    const productId = req.params.id
+    const product = await Product.findOne({productId : productId})
+    if (product == null) {
+        res.status(404).json({
+            message : "Product not found"
+        })
+        return
+    }
+    res.json({
+        product : product
+    })
+
+}
 // delete product - only admin===================================================================
 export function deleteProduct(req, res) {
     if (req.user == null) {
